@@ -160,7 +160,7 @@ if st.button("▶️ Run Simulation"):
         df["Service C.P."] = service_cp
 
     st.subheader("📋 Simulation Results")
-    st.dataframe(df.style.format(precision=2), use_container_width=True)
+    st.dataframe(df.style.format(precision=2), width='stretch')
 
     # --- Average Stats ---
     st.markdown("### 📊 Averages Summary")
@@ -184,7 +184,7 @@ if st.button("▶️ Run Simulation"):
         'Resource': 'Service'
     } for i in range(n)]
     fig = ff.create_gantt(gantt_data, index_col='Resource', show_colorbar=True, group_tasks=True)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 enable_playback = st.checkbox("🎥 Enable Real-Time Playback")
 
 if enable_playback:
@@ -246,7 +246,7 @@ if enable_playback:
         "P-Value": [a_p, s_p],
         "Result": [a_result, s_result]
     })
-    st.dataframe(chi_df, use_container_width=True)
+    st.dataframe(chi_df, width='stretch')
 
     # --- Download ---
     csv = df.to_csv(index=False).encode('utf-8')

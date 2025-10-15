@@ -32,9 +32,23 @@ with st.expander("About this app", expanded=False):
 # --- Secrets / Auth (optional) ---
 # Read token from Streamlit secrets or environment variable if provided
 AUTH_TOKEN = st.secrets.get("REDY_AUTH", os.getenv("REDY_AUTH"))
-if AUTH_TOKEN:
-    with st.sidebar:
+DB_USERNAME = st.secrets.get("DB_USERNAME")
+DB_TOKEN = st.secrets.get("DB_TOKEN")
+SOME_SECTION_KEY = None
+try:
+    SOME_SECTION_KEY = st.secrets.get("some_section", {}).get("some_key")
+except Exception:
+    SOME_SECTION_KEY = None
+
+with st.sidebar:
+    if AUTH_TOKEN:
         st.info("Auth token detected and loaded from secrets.")
+    if DB_USERNAME or DB_TOKEN:
+        masked_user = (DB_USERNAME[:2] + "***") if DB_USERNAME else "(none)"
+        masked_token = ("***" + DB_TOKEN[-3:]) if DB_TOKEN and len(DB_TOKEN) >= 3 else "(none)"
+        st.success(f"DB creds loaded (user: {masked_user}, token: {masked_token})")
+    if SOME_SECTION_KEY is not None:
+        st.write("Additional config loaded (some_section.some_key)")
 
 # --- Sidebar ---
 with st.sidebar:

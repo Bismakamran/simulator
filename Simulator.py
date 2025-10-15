@@ -6,9 +6,10 @@ import seaborn as sns
 import plotly.figure_factory as ff
 from scipy import stats
 from scipy.stats import chisquare
+import os
 
 # --- Streamlit Setup ---
-st.set_page_config(page_title="Patient Queue Simulator", layout="wide")
+st.set_page_config(page_title="Patient Queue Simulator", page_icon="🩺", layout="wide")
 st.title("👩‍⚕️ Patient Queue Simulator (Time + Optional Cumulative Probability)")
 
 st.markdown("""
@@ -16,6 +17,24 @@ Simulate patient arrivals and services using selected distributions.
 Simulation runs for the specified **Simulation Time**.
 Optionally, enable **Cumulative Probability (C.P.) check** to stop when CDF reaches 1.
 """)
+
+# --- About Section ---
+with st.expander("About this app", expanded=False):
+    st.write(
+        """
+        This interactive simulator models a single-queue service system with configurable
+        arrival and service time distributions. It computes core performance metrics,
+        visualizes timelines with a Gantt chart, and includes optional goodness-of-fit
+        checks using the Chi-square test.
+        """
+    )
+
+# --- Secrets / Auth (optional) ---
+# Read token from Streamlit secrets or environment variable if provided
+AUTH_TOKEN = st.secrets.get("REDY_AUTH", os.getenv("REDY_AUTH"))
+if AUTH_TOKEN:
+    with st.sidebar:
+        st.info("Auth token detected and loaded from secrets.")
 
 # --- Sidebar ---
 with st.sidebar:

@@ -88,7 +88,7 @@
 #     })
 
 #     st.subheader("📋 Simulation Results")
-#     st.dataframe(df.style.format(precision=2), use_container_width=True)
+#     st.dataframe(df.style.format(precision=2), width='stretch')
 
 #     st.success(f"✅ Total Customers Simulated: {num_customers}")
 #     st.info(f"⚙️ Utilization Factor: **{utilization:.2f}**")
@@ -104,7 +104,7 @@
 #     fig = px.timeline(gantt_data, x_start="Start", x_end="Finish", y="Customer", color="Customer",
 #                       labels={"Customer": "Customer"}, title="Service Time per Customer")
 #     fig.update_yaxes(autorange="reversed")
-#     st.plotly_chart(fig, use_container_width=True)
+#     st.plotly_chart(fig, width='stretch')
 
 # # ---------------------- CHI-SQUARE SECTION -----------------------
 
@@ -333,7 +333,7 @@ if st.button("Run Simulation"):
     })
 
     st.subheader("📋 Simulation Results")
-    st.dataframe(df.style.format(precision=2), use_container_width=True)
+    st.dataframe(df.style.format(precision=2), width='stretch')
     st.success(f"✅ Total Customers Simulated: {num_customers}")
     st.info(f"⚙️ Utilization Factor: **{utilization:.2f}**")
 
@@ -347,7 +347,7 @@ if st.button("Run Simulation"):
     st.subheader("📊 Gantt Chart (Customer Service Timeline)")
     fig = px.timeline(gantt_data, x_start="Start", x_end="Finish", y="Customer", color="Customer")
     fig.update_yaxes(autorange="reversed")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     # Chi-square test for arrival time and service time
     chi_square_test(inter_arrival_times, arrival_dist, mean_arrival, "Arrival Time")

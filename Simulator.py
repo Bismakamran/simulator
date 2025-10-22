@@ -7,10 +7,22 @@ import plotly.figure_factory as ff
 from scipy import stats
 from scipy.stats import chisquare
 import os
+import urllib.parse
 
 # --- Streamlit Setup ---
 st.set_page_config(page_title="Patient Queue Simulator", page_icon="🩺", layout="wide")
 st.title("👩‍⚕️ Patient Queue Simulator (Time + Optional Cumulative Probability)")
+
+# --- File Handler for redy_auth_code.txt ---
+if "redy_auth_code.txt" in st.query_params.get("file", ""):
+    try:
+        with open("static/redy_auth_code.txt", "r") as f:
+            content = f.read().strip()
+        st.code(content, language="text")
+        st.stop()
+    except FileNotFoundError:
+        st.error("File not found")
+        st.stop()
 
 st.markdown("""
 Simulate patient arrivals and services using selected distributions.
